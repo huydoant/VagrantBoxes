@@ -46,14 +46,18 @@ sudo apt-get update && sudo apt-get install logstash
 sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
 
-# Changing file permissions to modify ElasticSearch and Kibana configuraiton files
+# Changing file permissions to modify ElasticSearch and Kibana configuration files and hosts file
 sudo chmod 777 /etc/elasticsearch
 sudo chmod 777 /etc/elasticsearch/elasticsearch.yml
 sudo chmod 777 /etc/kibana/kibana.yml
+sudo chmod 666 /etc/hosts
 
 # Copying correct ElasticSearch and Kibana configuration for port forwarding with guest VM
 cp /vagrant/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 cp /vagrant/kibana.yml /etc/kibana/kibana.yml
+
+# Copying hosts file with no proxy configuration
+cp /vagrant/hosts /etc/hosts
 
 # Resecuring ElasticSearch File Permissions
 sudo chmod 660 /etc/elasticsearch/elasticsearch.yml
@@ -61,6 +65,9 @@ sudo chmod 750 /etc/elasticsearch
 
 # Resecuring Kibana File Permissions
 sudo chmod 644 /etc/kibana/kibana.yml
+
+# Resecuring hosts File Permissions
+sudo chmod 644 /etc/hosts
 
 # Restart ElasticSearch and Kibana to apply new settings
 sudo service elasticsearch restart
